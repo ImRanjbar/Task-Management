@@ -22,6 +22,11 @@ bool Task::removeSubTask(Task &target)
     return false;
 }
 
+std::vector<Task> &Task::subTasks()
+{
+    return m_subTasks;
+}
+
 bool Task::operator==(const Task &other) const
 {
     return m_title == other.m_title &&
