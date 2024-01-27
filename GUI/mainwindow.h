@@ -20,6 +20,14 @@ public:
     ~MainWindow();
 
 private:
+    void setPlaceHolders();
+
+private slots:
+    void on_PB_login_signUp_clicked();
+
+    void on_PB_signUp_Login_clicked();
+
+private:
     Ui::MainWindow *ui;
 };
 
