@@ -27,6 +27,8 @@ private slots:
 
     void on_PB_signUp_Login_clicked();
 
+    void on_PB_login_clicked();
+
 private:
     Ui::MainWindow *ui;
 };

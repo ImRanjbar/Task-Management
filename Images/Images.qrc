@@ -1,5 +1,9 @@
 <RCC>
     <qresource prefix="/">
         <file>LoginWindow.png</file>
+        <file>HomeWindow.png</file>
+        <file>icons/EditProfile.png</file>
+        <file>icons/Logout.png</file>
+        <file>Images.qrc</file>
     </qresource>
 </RCC>
