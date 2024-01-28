@@ -25,6 +25,13 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         ${PROJECT_SOURCES}
         Images/Images.qrc
         GUI/HomeWindow.h GUI/HomeWindow.cpp GUI/HomeWindow.ui
+        MyBinaryTree.h MyBinaryTree.cpp
+        Task.h Task.cpp
+        TaskManagement.h TaskManagement.cpp
+        User.h User.cpp
+        SubTask.h SubTask.cpp
+        FileManager.h FileManager.cpp
+        Date.h Date.cpp
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET TaskManagement APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
