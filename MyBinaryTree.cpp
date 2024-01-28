@@ -250,6 +250,14 @@ std::list<T> MyBinaryTree<T>::levelOrderList() const
 }
 
 template<typename T>
+typename MyBinaryTree<T>::Position &MyBinaryTree<T>::editElement(T desiredElement)
+{
+    Position p = search(m_root, desiredElement);
+    std::cerr<< "found\n";
+    return p;
+}
+
+template<typename T>
 int MyBinaryTree<T>::height() const
 {
     return heightHelper(m_root);
@@ -388,6 +396,7 @@ typename MyBinaryTree<T>::Position MyBinaryTree<T>::insertHelperLevelOrder(Posit
 template<typename T>
 typename MyBinaryTree<T>::Position MyBinaryTree<T>::search(const Position& current, const T value) const
 {
+    std::cerr << "searching\n";
     if (current.isNull()) {
         throw std::runtime_error("search Failed");
     }

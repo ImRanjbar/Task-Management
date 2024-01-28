@@ -23,7 +23,7 @@ private:
         Node* m_right;
     };
 
-protected:
+public:
 
     class Position {
     public:
@@ -60,6 +60,7 @@ public:
     std::list<T> postOrderList() const;
     std::list<T> inOrderList() const;
     std::list<T> levelOrderList() const;
+    Position& editElement(T desiredElement);
     int height() const;
     int depth(const T& value);
 

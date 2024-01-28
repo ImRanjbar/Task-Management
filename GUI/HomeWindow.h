@@ -18,6 +18,9 @@ public:
     explicit HomeWindow(FileManager* file,QWidget *parent = nullptr);
     ~HomeWindow();
 
+private:
+    void populateTreeWidget();
+
 signals:
     void windowClosed();
 
@@ -25,6 +28,10 @@ private slots:
     void on_treeWidget_itemClicked(QTreeWidgetItem *item, int column);
 
     void on_PB_logout_clicked();
+
+    void on_PB_addTask_clicked();
+
+    void on_PB_addSub_clicked();
 
 private:
     Ui::HomeWindow *ui;
