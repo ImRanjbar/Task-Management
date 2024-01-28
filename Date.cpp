@@ -43,6 +43,13 @@ int Date::getYear() const {
     return m_year;
 }
 
+const std::string Date::toString() const
+{
+    std::string deadline = std::to_string(m_day) + "/" + std::to_string(m_month) + "/" + std::to_string(m_year);
+
+    return deadline;
+}
+
 bool Date::isValidDate() const {
     return (m_day >= 1 && m_day <= 31) &&
            (m_month >= 1 && m_month <= 12) &&

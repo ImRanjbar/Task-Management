@@ -4,6 +4,7 @@
 
 #include <QMainWindow>
 
+#include "../FileManager.h"
 
 
 QT_BEGIN_NAMESPACE
@@ -16,7 +17,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    MainWindow(QWidget *parent = nullptr);
+    MainWindow(FileManager* file = nullptr, QWidget *parent = nullptr);
     ~MainWindow();
 
 private:
@@ -29,8 +30,11 @@ private slots:
 
     void on_PB_login_clicked();
 
+    void on_PB_signUp_clicked();
+
 private:
     Ui::MainWindow *ui;
+    FileManager* m_file;
 };
 
 #endif // MAINWINDOW_H

@@ -5,7 +5,7 @@ FileManager::FileManager(User& user) : m_user(&user) {}
 
 FileManager::status FileManager::searchUser()
 {
-    std::ifstream file("users.txt");
+    std::ifstream file("Users.txt");
 
     if (!file)
         throw std::runtime_error("Can't open file\n");
@@ -23,10 +23,18 @@ FileManager::status FileManager::searchUser()
                 return status::wrongPass;
             }
         }
+        else {
+            file.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        }
     }
 
     file.close();
     return status::wrongUsername;
+}
+
+User &FileManager::user()
+{
+    return *m_user;
 }
 
 bool FileManager::readData()
@@ -87,6 +95,40 @@ bool FileManager::readData()
     else
         return false;
 
+}
+
+bool FileManager::readUser()
+{
+    std::ifstream file("Users.txt");
+
+    if (!file){
+        std::cerr << "Can't open Users file\n";
+        return false;
+    }
+
+    std::string str;
+    while (file >> str){
+        if (str != m_user->getUsername()){
+            file.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        }
+        else {
+            m_user->setUsername(str);
+            file >> str;
+            m_user->setPassword(str);
+            file >> str;
+            m_user->setName(str);
+            file >> str;
+            m_user->setLastname(str);
+            file >> str;
+            m_user->setEmail(str);
+
+            file.close();
+            return true;
+        }
+    }
+
+    file.close();
+    return false;
 }
 
 bool FileManager::addUser()

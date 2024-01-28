@@ -17,7 +17,10 @@ public:
 
     status searchUser();
 
+    User& user();
+
     bool readData();
+    bool readUser();
     bool addUser();
     bool saveTasks();
 

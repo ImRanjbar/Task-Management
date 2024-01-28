@@ -201,49 +201,19 @@ QTreeView::item:hover {
     </property>
     <column>
      <property name="text">
-      <string>Tasks</string>
+      <string>Title</string>
      </property>
     </column>
-    <item>
+    <column>
      <property name="text">
-      <string>New Item</string>
+      <string>Description</string>
      </property>
-     <item>
-      <property name="text">
-       <string>New Subitem</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>New Item</string>
-      </property>
-     </item>
-    </item>
-    <item>
+    </column>
+    <column>
      <property name="text">
-      <string>New Item</string>
+      <string>Deadline</string>
      </property>
-     <item>
-      <property name="text">
-       <string>New Subitem</string>
-      </property>
-      <item>
-       <property name="text">
-        <string>New Subitem</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>New Item</string>
-       </property>
-      </item>
-     </item>
-     <item>
-      <property name="text">
-       <string>New Subitem</string>
-      </property>
-     </item>
-    </item>
+    </column>
    </widget>
    <widget class="QLabel" name="label_2">
     <property name="geometry">

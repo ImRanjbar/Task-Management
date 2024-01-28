@@ -1,6 +1,8 @@
 #ifndef DATE_H
 #define DATE_H
 
+#include <string>
+
 class Date
 {
 public:
@@ -14,6 +16,8 @@ public:
     int getDay() const;
     int getMonth() const;
     int getYear() const;
+
+    const std::string toString() const;
 
     bool isValidDate() const;
 
