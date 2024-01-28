@@ -1,8 +1,23 @@
 #include "SubTask.h"
 
-SubTask::SubTask(const std::string &title, const std::string &description, const std::string &deadline, bool isCompleted)
+SubTask::SubTask(const std::string &title, const std::string &description, const Date &deadline, bool isCompleted)
     : m_title(title), m_description(description), m_deadline(deadline), m_isCompleted(isCompleted) {}
 
+const std::string& SubTask::getTitle() const {
+    return m_title;
+}
+
+const std::string& SubTask::getDescription() const {
+    return m_description;
+}
+
+const Date& SubTask::getDeadline() const {
+    return m_deadline;
+}
+
+bool SubTask::isCompleted() const {
+    return m_isCompleted;
+}
 
 bool SubTask::operator==(const SubTask &other) const
 {

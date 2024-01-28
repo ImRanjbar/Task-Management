@@ -2,6 +2,7 @@
 #include "GUI/mainwindow.h"
 
 #include <QApplication>
+#include "FileManager.h"
 
 
 int main(int argc, char *argv[])

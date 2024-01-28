@@ -2,15 +2,15 @@
 
 #include <algorithm>
 
-Task::Task(const std::string &title, const std::string &description, const std::string &deadline, bool isCompleted)
+Task::Task(const std::string &title, const std::string &description, const Date &deadline, bool isCompleted)
     : m_title(title), m_description(description), m_deadline(deadline), m_isCompleted(isCompleted) {}
 
-void Task::addSubTask(Task &newTask)
+void Task::addSubTask(SubTask &newTask)
 {
     m_subTasks.push_back(newTask);
 }
 
-bool Task::removeSubTask(Task &target)
+bool Task::removeSubTask(SubTask &target)
 {
     auto it = std::find(m_subTasks.begin(), m_subTasks.end(), target);
 
@@ -22,9 +22,25 @@ bool Task::removeSubTask(Task &target)
     return false;
 }
 
-std::vector<Task> &Task::subTasks()
+std::vector<SubTask> &Task::subTasks()
 {
     return m_subTasks;
+}
+
+const std::string& Task::getTitle() const {
+    return m_title;
+}
+
+const std::string& Task::getDescription() const {
+    return m_description;
+}
+
+const Date& Task::getDeadline() const {
+    return m_deadline;
+}
+
+bool Task::isCompleted() const {
+    return m_isCompleted;
 }
 
 bool Task::operator==(const Task &other) const

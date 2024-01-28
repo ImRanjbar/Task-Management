@@ -3,16 +3,22 @@
 
 #include <string>
 #include <vector>
+#include "SubTask.h"
 
 class Task
 {
 public:
     Task() = default;
-    Task(const std::string& title, const std::string& description, const std::string& deadline, bool isCompleted = false);
+    Task(const std::string& title, const std::string& description, const Date& deadline, bool isCompleted = false);
 
-    void addSubTask(Task& newTask);
-    bool removeSubTask(Task& target);
-    std::vector<Task>& subTasks();
+    void addSubTask(SubTask& newTask);
+    bool removeSubTask(SubTask& target);
+    std::vector<SubTask>& subTasks();
+
+    const std::string& getTitle() const;
+    const std::string& getDescription() const;
+    const Date& getDeadline() const;
+    bool isCompleted() const;
 
     bool operator==(const Task& other) const;
     bool operator<(const Task& other) const;
@@ -21,9 +27,9 @@ public:
 private:
     std::string m_title;
     std::string m_description;
-    std::string m_deadline;
+    Date m_deadline;
     bool m_isCompleted;
-    std::vector<Task> m_subTasks;
+    std::vector<SubTask> m_subTasks;
 };
 
 #endif // TASK_H
