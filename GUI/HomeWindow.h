@@ -38,6 +38,10 @@ private slots:
 
     void on_PB_done_clicked();
 
+    void on_treeWidget_itemDoubleClicked(QTreeWidgetItem *item, int column);
+
+    void onDialogClosed();
+
 private:
     Ui::HomeWindow *ui;
     FileManager* m_file;

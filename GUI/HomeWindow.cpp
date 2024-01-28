@@ -1,6 +1,9 @@
 #include "HomeWindow.h"
 #include "ui_HomeWindow.h"
+#include "TaskWindow.h"
+
 #include <QString>
+
 
 HomeWindow::HomeWindow(FileManager* file, QWidget *parent)
     : QMainWindow(parent)
@@ -140,7 +143,6 @@ void HomeWindow::on_PB_addSub_clicked()
     populateTreeWidget();
 }
 
-
 void HomeWindow::on_PB_done_clicked()
 {
 
@@ -180,3 +182,18 @@ void HomeWindow::on_PB_done_clicked()
 
     populateTreeWidget();
 }
+
+void HomeWindow::on_treeWidget_itemDoubleClicked(QTreeWidgetItem *item, int column)
+{
+    TaskWindow* taskWindow = new TaskWindow(m_file, item, this);
+    connect(taskWindow, &TaskWindow::dialogClosed, this, &HomeWindow::onDialogClosed);
+
+    taskWindow->setModal(true);
+    taskWindow->show();
+}
+
+void HomeWindow::onDialogClosed()
+{
+    populateTreeWidget();
+}
+
