@@ -56,6 +56,7 @@ public:
     bool isEmpty() const;
     void insert(const T& element);
     bool remove(const T& element);
+    bool remove(const Position& element);
     std::list<T> preOrderList() const;
     std::list<T> postOrderList() const;
     std::list<T> inOrderList() const;

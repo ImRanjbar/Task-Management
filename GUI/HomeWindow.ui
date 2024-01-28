@@ -453,7 +453,7 @@ QPushButton:active {
    </widget>
    <widget class="QPushButton" name="PB_done">
     <property name="enabled">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
     <property name="geometry">
      <rect>

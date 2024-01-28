@@ -74,7 +74,7 @@ bool MyBinaryTree<T>::Position::isExternal() const
 {
     if (m_node == nullptr)
         return true;
-    return m_node->m_left == nullptr && m_node->m_right == nullptr;
+    return (m_node->m_left == nullptr) && (m_node->m_right == nullptr);
 }
 
 template<typename T>
@@ -140,16 +140,28 @@ void MyBinaryTree<T>::insert(const T& element)
 }
 
 template<typename T>
-bool MyBinaryTree<T>::remove(const T &element)
+bool MyBinaryTree<T>::remove(const T& element)
 {
     Position target = search(m_root, element);
+    return remove(target);
+}
+
+template<typename T>
+bool MyBinaryTree<T>::remove(const Position& target)
+{
+    if (m_size == 1) {
+        delete m_root;
+        m_root = nullptr;
+        m_size = 0;
+
+        return true;
+    }
 
     if (target.isNull()) {
         return false;
     }
 
-
-    if (target.isExternal()) {
+    else if (target.isExternal()) {
         Node* parent = target.parent().m_node;
         if (parent->m_left == target.m_node) {
             delete parent->m_left;
@@ -164,19 +176,35 @@ bool MyBinaryTree<T>::remove(const T &element)
     }
 
     else if (target.left().isNull() || target.right().isNull()) {
-        Node* child = (target.left().isExternal()) ? target.right().m_node : target.left().m_node;
+        Node* child = (target.left().isNull()) ? target.right().m_node : target.left().m_node;
         Node* parent = target.parent().m_node;
 
-        if (parent->m_left == target.m_node) {
-            delete parent->m_left;
-            parent->m_left = child;
+        if (parent) {
+            if (parent->m_left == target.m_node) {
+                delete parent->m_left;
+                parent->m_left = child;
+            }
+            else {
+                delete parent->m_right;
+                parent->m_right = child;
+            }
+            child->m_parent = parent;
         }
         else {
-            delete parent->m_right;
-            parent->m_right = child;
+            Node* temp = m_root;
+
+            if (target.left().isNull()) {
+                m_root = m_root->m_right;
+                m_root->m_parent = nullptr;
+            }
+            else {
+                m_root = m_root->m_left;
+                m_root->m_parent = nullptr;
+            }
+
+            delete temp;
         }
 
-        child->m_parent = parent;
         m_size--;
     }
     else {
@@ -250,10 +278,9 @@ std::list<T> MyBinaryTree<T>::levelOrderList() const
 }
 
 template<typename T>
-typename MyBinaryTree<T>::Position &MyBinaryTree<T>::editElement(T desiredElement)
+typename MyBinaryTree<T>::Position& MyBinaryTree<T>::editElement(T desiredElement)
 {
     Position p = search(m_root, desiredElement);
-    std::cerr<< "found\n";
     return p;
 }
 
@@ -396,7 +423,6 @@ typename MyBinaryTree<T>::Position MyBinaryTree<T>::insertHelperLevelOrder(Posit
 template<typename T>
 typename MyBinaryTree<T>::Position MyBinaryTree<T>::search(const Position& current, const T value) const
 {
-    std::cerr << "searching\n";
     if (current.isNull()) {
         throw std::runtime_error("search Failed");
     }
@@ -426,6 +452,9 @@ typename std::list<typename MyBinaryTree<T>::Position> MyBinaryTree<T>::preOrder
 template<typename T>
 void MyBinaryTree<T>::preOrderHelper(const Position& current, std::list<Position>& positions) const
 {
+    if (current.isNull())
+        return;
+
     positions.push_back(current);
     if (!current.left().isNull()) {
         preOrderHelper(current.left(), positions);
@@ -446,6 +475,9 @@ typename std::list<typename MyBinaryTree<T>::Position> MyBinaryTree<T>::postOrde
 template<typename T>
 void MyBinaryTree<T>::postOrderHelper(const Position& current, std::list<Position>& positions) const
 {
+    if (current.isNull())
+        return;
+
     if (!current.left().isNull()) {
         postOrderHelper(current.left(), positions);
     }
@@ -488,6 +520,9 @@ std::list<typename MyBinaryTree<T>::Position> MyBinaryTree<T>::levelOrderPositio
 template<typename T>
 void MyBinaryTree<T>::inOrderHelper(const Position& current, const Position& parent, std::list<Position>& positions) const
 {
+    if (current.isNull())
+        return;
+
     if (!current.left().isNull()) {
         inOrderHelper(current.left(), parent, positions);
     }

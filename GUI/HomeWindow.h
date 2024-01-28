@@ -20,6 +20,9 @@ public:
 
 private:
     void populateTreeWidget();
+    bool isTask(QTreeWidgetItem* item);
+    void taskDone(const MyBinaryTree<Task>::Position& task);
+    Date qDateToDate(QDate& qDate);
 
 signals:
     void windowClosed();
@@ -32,6 +35,8 @@ private slots:
     void on_PB_addTask_clicked();
 
     void on_PB_addSub_clicked();
+
+    void on_PB_done_clicked();
 
 private:
     Ui::HomeWindow *ui;

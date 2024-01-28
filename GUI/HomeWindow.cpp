@@ -53,6 +53,34 @@ void HomeWindow::populateTreeWidget()
             subTaskItem->setText(2, QString::fromStdString(subTask.getDeadline().toString()));
         }
     }
+
+    ui->PB_done->setEnabled(false);
+}
+
+bool HomeWindow::isTask(QTreeWidgetItem* item)
+{
+    if (item->parent()){
+        return false;
+    }
+    else {
+        return true;
+    }
+}
+
+void HomeWindow::taskDone(const MyBinaryTree<Task>::Position& posTask)
+{
+    if ((*posTask).subTasks().empty()){
+        m_file->user().taskManagement().tasks().remove(posTask);
+    }
+}
+
+Date HomeWindow::qDateToDate(QDate &qDate)
+{
+    int day = qDate.day();
+    int month = qDate.month();
+    int year = qDate.year();
+
+    return Date(day, month, year);
 }
 
 void HomeWindow::on_treeWidget_itemClicked(QTreeWidgetItem *item, int column)
@@ -60,6 +88,7 @@ void HomeWindow::on_treeWidget_itemClicked(QTreeWidgetItem *item, int column)
     ui->addSubWidget->show();
     ui->LB_taskTitle->setText("Title: "+ item->text(0));
 
+    ui->PB_done->setEnabled(true);
 }
 
 void HomeWindow::on_PB_logout_clicked()
@@ -72,10 +101,8 @@ void HomeWindow::on_PB_addTask_clicked()
 {
     std::string title = ui->LE_titleTask->text().trimmed().toStdString();
     std::string description = ui->TE_desTask->toPlainText().trimmed().toStdString();
-    int day = ui->DE_deadlineTask->date().day();
-    int month = ui->DE_deadlineTask->date().month();
-    int year = ui->DE_deadlineTask->date().year();
-    Date deadline(day, month, year);
+    QDate date = ui->DE_deadlineTask->date();
+    Date deadline = qDateToDate(date);
 
     Task newTask(title, description, deadline);
     m_file->user().taskManagement().tasks().insert(newTask);
@@ -92,14 +119,10 @@ void HomeWindow::on_PB_addSub_clicked()
 
     std::string taskTitle = selectedItem->text(0).trimmed().toStdString();
     std::string taskDescription = selectedItem->text(1).trimmed().toStdString();
-    QDate date = QDate::fromString(selectedItem->text(2).trimmed(), "d/M/yyyy");
-    int taskDay = date.day();
-    int taskMonth = date.month();
-    int taskYear = date.year();
+    QDate taskDate = QDate::fromString(selectedItem->text(2).trimmed(), "d/M/yyyy");
+    Date taskDeadline = qDateToDate(taskDate);
 
-    Date taskDeadline(taskDay, taskMonth, taskYear);
     Task desiredTask(taskTitle, taskDescription, taskDeadline);
-    std::cerr << desiredTask.getTitle() << " " << desiredTask.getDescription() << " " << desiredTask.getDeadline().toString() << "\n";
     MyBinaryTree<Task>::Position positionTask = m_file->user().taskManagement().tasks().editElement(desiredTask);
 
     Task& realTask = *positionTask;
@@ -108,14 +131,52 @@ void HomeWindow::on_PB_addSub_clicked()
     // add SubTask to realTask
     std::string title = ui->LE_titleSub->text().trimmed().toStdString();
     std::string description = ui->TE_desSub->toPlainText().trimmed().toStdString();
-    int day = ui->DE_deadlineSub->date().day();
-    int month = ui->DE_deadlineSub->date().month();
-    int year = ui->DE_deadlineSub->date().year();
-    Date deadline(day, month, year);
-    SubTask newSub(title, description, deadline);
+    QDate date = ui->DE_deadlineSub->date();
+    Date deadline = qDateToDate(date);
 
+    SubTask newSub(title, description, deadline);
     realTask.addSubTask(newSub);
 
     populateTreeWidget();
 }
 
+
+void HomeWindow::on_PB_done_clicked()
+{
+
+    QTreeWidgetItem* selectedItem = ui->treeWidget->currentItem();
+
+    std::string title = selectedItem->text(0).trimmed().toStdString();
+    std::string description = selectedItem->text(1).trimmed().toStdString();
+    QDate date = QDate::fromString(selectedItem->text(2).trimmed(), "d/M/yyyy");
+    Date deadline = qDateToDate(date);
+
+    if (isTask(selectedItem)){
+        Task desiredTask(title, description, deadline);
+
+        m_file->user().taskManagement().tasks().remove(desiredTask);
+    }
+    else {
+        QTreeWidgetItem* taskItem = ui->treeWidget->currentItem()->parent();
+
+        std::string taskTitle = taskItem->text(0).toStdString();
+        std::string taskDes = taskItem->text(1).toStdString();
+
+        QDate taskDead = QDate::fromString(taskItem->text(2), "d/M/yyyy");
+        int taskDay = taskDead.day();
+        int taskMonth = taskDead.month();
+        int taskYear = taskDead.year();
+        Date taskDeadline(taskDay, taskMonth, taskYear);
+
+        Task desiredTask(taskTitle, taskDes, taskDeadline);
+        MyBinaryTree<Task>::Position positionTask = m_file->user().taskManagement().tasks().editElement(desiredTask);
+
+        Task& realTask = *positionTask;
+        SubTask desiredSub(title, description, deadline);
+
+        realTask.removeSubTask(desiredSub);
+        taskDone(positionTask);
+    }
+
+    populateTreeWidget();
+}
