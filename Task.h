@@ -10,6 +10,7 @@ class Task
 public:
     Task() = default;
     Task(const std::string& title, const std::string& description, const Date& deadline, bool isCompleted = false);
+    ~Task();
 
     void addSubTask(SubTask& newTask);
     bool removeSubTask(SubTask& target);

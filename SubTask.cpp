@@ -3,6 +3,8 @@
 SubTask::SubTask(const std::string &title, const std::string &description, const Date &deadline, bool isCompleted)
     : m_title(title), m_description(description), m_deadline(deadline), m_isCompleted(isCompleted) {}
 
+SubTask::~SubTask() = default;
+
 const std::string& SubTask::getTitle() const {
     return m_title;
 }

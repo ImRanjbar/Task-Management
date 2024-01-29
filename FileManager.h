@@ -14,8 +14,10 @@ public:
 
 public:
     FileManager(User& user);
+    ~FileManager();
 
-    status searchUser();
+    status searchUser() const;
+    static status searchUser(const std::string& username, const std::string& password = "");
 
     User& user();
 

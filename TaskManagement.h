@@ -8,6 +8,8 @@ class TaskManagement
 {
 public:
     TaskManagement();
+    ~TaskManagement();
+
     MyBinaryTree<Task>& tasks();
 
 private:

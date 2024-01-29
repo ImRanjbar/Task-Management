@@ -5,6 +5,8 @@
 Task::Task(const std::string &title, const std::string &description, const Date &deadline, bool isCompleted)
     : m_title(title), m_description(description), m_deadline(deadline), m_isCompleted(isCompleted) {}
 
+Task::~Task() = default;
+
 void Task::addSubTask(SubTask &newTask)
 {
     m_subTasks.push_back(newTask);

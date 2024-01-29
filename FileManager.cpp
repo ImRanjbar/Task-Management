@@ -3,7 +3,20 @@
 
 FileManager::FileManager(User& user) : m_user(&user) {}
 
-FileManager::status FileManager::searchUser()
+FileManager::~FileManager()
+{
+    if (m_user){
+        delete m_user;
+        m_user = nullptr;
+    }
+}
+
+FileManager::status FileManager::searchUser() const
+{
+    return searchUser(m_user->getUsername(), m_user->getPassword());
+}
+
+FileManager::status FileManager::searchUser(const std::string &username, const std::string& password)
 {
     std::ifstream file("Users.txt");
 
@@ -12,9 +25,9 @@ FileManager::status FileManager::searchUser()
 
     std::string temp;
     while (file >> temp) {
-        if (temp == m_user->getUsername()) {
+        if (temp == username) {
             file >> temp;
-            if (temp == m_user->getPassword()) {
+            if (temp == password) {
                 file.close();
                 return status::success;
             }
@@ -30,6 +43,7 @@ FileManager::status FileManager::searchUser()
 
     file.close();
     return status::wrongUsername;
+
 }
 
 User &FileManager::user()

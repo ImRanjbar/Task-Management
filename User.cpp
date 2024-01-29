@@ -5,6 +5,8 @@ User::User() : m_name(""), m_lastname(""), m_username(""), m_password(""), m_ema
 User::User(const std::string &name, const std::string &lastname, const std::string &username, const std::string &password, const std::string &email) :
     m_name(name), m_lastname(lastname), m_username(username), m_password(password), m_email(email), m_taskManagement() {}
 
+User::~User() = default;
+
 const std::string& User::getName() const {
     return m_name;
 }

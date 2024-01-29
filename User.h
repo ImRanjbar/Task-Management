@@ -10,6 +10,7 @@ public:
     User();
     User(const std::string& name, const std::string& lastname, const std::string& username
          , const std::string& password, const std::string& email);
+    ~User();
 
     const std::string& getName() const;
     const std::string& getLastname() const;

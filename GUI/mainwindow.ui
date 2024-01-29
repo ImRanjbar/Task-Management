@@ -48,7 +48,7 @@
     <property name="geometry">
      <rect>
       <x>40</x>
-      <y>50</y>
+      <y>70</y>
       <width>510</width>
       <height>550</height>
      </rect>
@@ -57,7 +57,7 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>350</y>
+       <y>370</y>
        <width>491</width>
        <height>60</height>
       </rect>
@@ -123,7 +123,7 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>40</y>
+       <y>0</y>
        <width>191</width>
        <height>81</height>
       </rect>
@@ -149,7 +149,7 @@ text-transform: none;</string>
      <property name="geometry">
       <rect>
        <x>30</x>
-       <y>430</y>
+       <y>460</y>
        <width>450</width>
        <height>61</height>
       </rect>
@@ -190,7 +190,7 @@ QPushButton:active {
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>210</y>
+       <y>190</y>
        <width>491</width>
        <height>60</height>
       </rect>
@@ -222,8 +222,8 @@ QPushButton:active {
     <widget class="QWidget" name="layoutWidget_2">
      <property name="geometry">
       <rect>
-       <x>50</x>
-       <y>490</y>
+       <x>40</x>
+       <y>520</y>
        <width>441</width>
        <height>31</height>
       </rect>
@@ -291,7 +291,7 @@ QPushButton:hover{
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>130</y>
+       <y>100</y>
        <width>491</width>
        <height>72</height>
       </rect>
@@ -365,6 +365,121 @@ QPushButton:hover{
       </item>
      </layout>
     </widget>
+    <widget class="QLabel" name="LB_errorName">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>165</y>
+       <width>241</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font-family: Calibri;
+font-size: 15px;
+letter-spacing: 0px;
+word-spacing: 0px;
+color: #ec5d8a;
+font-weight: bold;
+font-style: normal;
+text-transform: none;</string>
+     </property>
+     <property name="text">
+      <string>TextLabel</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="LB_errorEmail">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>250</y>
+       <width>489</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font-family: Calibri;
+font-size: 15px;
+letter-spacing: 0px;
+word-spacing: 0px;
+color: #ec5d8a;
+font-weight: bold;
+font-style: normal;
+text-transform: none;</string>
+     </property>
+     <property name="text">
+      <string>TextLabel</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="LB_errorUsernameSnUp">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>340</y>
+       <width>489</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font-family: Calibri;
+font-size: 15px;
+letter-spacing: 0px;
+word-spacing: 0px;
+color: #ec5d8a;
+font-weight: bold;
+font-style: normal;
+text-transform: none;</string>
+     </property>
+     <property name="text">
+      <string>TextLabel</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="LB_errorPassSnUp">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>430</y>
+       <width>489</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font-family: Calibri;
+font-size: 15px;
+letter-spacing: 0px;
+word-spacing: 0px;
+color: #ec5d8a;
+font-weight: bold;
+font-style: normal;
+text-transform: none;</string>
+     </property>
+     <property name="text">
+      <string>TextLabel</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="LB_errorLastname">
+     <property name="geometry">
+      <rect>
+       <x>260</x>
+       <y>165</y>
+       <width>241</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font-family: Calibri;
+font-size: 15px;
+letter-spacing: 0px;
+word-spacing: 0px;
+color: #ec5d8a;
+font-weight: bold;
+font-style: normal;
+text-transform: none;</string>
+     </property>
+     <property name="text">
+      <string>TextLabel</string>
+     </property>
+    </widget>
    </widget>
    <widget class="QWidget" name="loginWidget" native="true">
     <property name="geometry">
@@ -379,7 +494,7 @@ QPushButton:hover{
      <property name="geometry">
       <rect>
        <x>50</x>
-       <y>470</y>
+       <y>500</y>
        <width>431</width>
        <height>31</height>
       </rect>
@@ -476,7 +591,7 @@ text-transform: none;</string>
      <property name="geometry">
       <rect>
        <x>30</x>
-       <y>410</y>
+       <y>440</y>
        <width>450</width>
        <height>61</height>
       </rect>
@@ -516,8 +631,8 @@ QPushButton:active {
     <widget class="QWidget" name="layoutWidget">
      <property name="geometry">
       <rect>
-       <x>11</x>
-       <y>260</y>
+       <x>10</x>
+       <y>280</y>
        <width>491</width>
        <height>121</height>
       </rect>
@@ -578,7 +693,7 @@ text-transform: none;
        <x>9</x>
        <y>140</y>
        <width>491</width>
-       <height>111</height>
+       <height>116</height>
       </rect>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -630,6 +745,52 @@ text-transform: none;
        </widget>
       </item>
      </layout>
+    </widget>
+    <widget class="QLabel" name="LB_errorUsername">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>260</y>
+       <width>489</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font-family: Calibri;
+font-size: 15px;
+letter-spacing: 0px;
+word-spacing: 0px;
+color: #ec5d8a;
+font-weight: bold;
+font-style: normal;
+text-transform: none;</string>
+     </property>
+     <property name="text">
+      <string>TextLabel</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="LB_errorPassword">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>400</y>
+       <width>489</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font-family: Calibri;
+font-size: 15px;
+letter-spacing: 0px;
+word-spacing: 0px;
+color: #ec5d8a;
+font-weight: bold;
+font-style: normal;
+text-transform: none;</string>
+     </property>
+     <property name="text">
+      <string>TextLabel</string>
+     </property>
     </widget>
    </widget>
   </widget>

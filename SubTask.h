@@ -9,6 +9,7 @@ class SubTask
 public:
     SubTask() = default;
     SubTask(const std::string& title, const std::string& description, const Date& deadline, bool isCompleted = false);
+    ~SubTask();
 
     const std::string& getTitle() const;
     const std::string& getDescription() const;
