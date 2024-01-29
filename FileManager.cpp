@@ -59,32 +59,36 @@ bool FileManager::readData()
             file >> year >> month >> day;
             Date deadline(day, month, year);
 
-
             int numSub;
             file >> numSub;
-
-            Task newTask(title, description, deadline, false);
-            m_user->taskManagement().tasks().insert(newTask);
             file.ignore();
 
-            while (numSub > 0) {
-                std::string title;
-                std::getline(file, title);
+            Task newTask(title, description, deadline, false);
 
-                std::string description;
-                std::getline(file, description);
+            if (numSub){
+                while (numSub > 0) {
+                    std::string title;
+                    std::getline(file, title);
 
-                int year, month, day;
-                file >> year >> month >> day;
-                Date deadline(day, month, year);
+                    std::string description;
+                    std::getline(file, description);
 
+                    int year, month, day;
+                    file >> year >> month >> day;
+                    Date deadline(day, month, year);
 
-                SubTask sub(title, description, deadline, false);
+                    SubTask sub(title, description, deadline, false);
 
-                newTask.addSubTask(sub);
+                    newTask.addSubTask(sub);
 
-                numSub--;
-                file.ignore();
+                    numSub--;
+                    file.ignore();
+                }
+
+                m_user->taskManagement().tasks().insert(newTask);
+            }
+            else {
+                m_user->taskManagement().tasks().insert(newTask);
             }
         }
 
@@ -92,9 +96,9 @@ bool FileManager::readData()
 
         return true;
     }
+
     else
         return false;
-
 }
 
 bool FileManager::readUser()

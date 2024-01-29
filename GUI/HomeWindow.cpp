@@ -33,6 +33,7 @@ HomeWindow::HomeWindow(FileManager* file, QWidget *parent)
 HomeWindow::~HomeWindow()
 {
     std::cerr << "HomeWindow destructure\n";
+    m_file->saveTasks();
     delete ui;
 }
 
