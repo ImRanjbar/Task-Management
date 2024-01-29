@@ -18,9 +18,15 @@ public:
     explicit TaskWindow(FileManager* file, QTreeWidgetItem* item, QWidget *parent = nullptr);
     ~TaskWindow();
 
+private:
+    Date qDateToDate(QDate& qDate);
+    MyBinaryTree<Task>::Position findTask();
 
 signals:
     void dialogClosed();
+
+private slots:
+    void on_PB_edit_clicked();
 
 private:
     Ui::TaskWindow *ui;

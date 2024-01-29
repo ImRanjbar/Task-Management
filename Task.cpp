@@ -27,6 +27,26 @@ std::vector<SubTask> &Task::subTasks()
     return m_subTasks;
 }
 
+void Task::setTitle(const std::string& title)
+{
+    m_title = title;
+}
+
+void Task::setDescription(const std::string& description)
+{
+    m_description = description;
+}
+
+void Task::setDeadline(const Date& deadline)
+{
+    m_deadline = deadline;
+}
+
+void Task::setCompleted(bool isCompleted)
+{
+    m_isCompleted = isCompleted;
+}
+
 const std::string& Task::getTitle() const {
     return m_title;
 }

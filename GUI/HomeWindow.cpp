@@ -58,6 +58,7 @@ void HomeWindow::populateTreeWidget()
     }
 
     ui->PB_done->setEnabled(false);
+    ui->addSubWidget->hide();
 }
 
 bool HomeWindow::isTask(QTreeWidgetItem* item)
