@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QTreeWidgetItem>
+#include <QLabel>
 
 #include "../FileManager.h"
 
@@ -15,6 +16,9 @@ class HomeWindow : public QMainWindow
     Q_OBJECT
 
 public:
+    enum class Action { Task, SubTask };
+
+public:
     explicit HomeWindow(FileManager* file,QWidget *parent = nullptr);
     ~HomeWindow();
 
@@ -23,6 +27,13 @@ private:
     bool isTask(QTreeWidgetItem* item);
     void taskDone(const MyBinaryTree<Task>::Position& task);
     Date qDateToDate(QDate& qDate);
+
+    void hideErrors(const Action& action);
+    void showError(QLabel* labelError, QString error);
+
+    void refreshWidgets(const Action& action);
+    
+    bool checkInputValidity(const Action& action);
 
 signals:
     void windowClosed();

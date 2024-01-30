@@ -15,12 +15,17 @@ class TaskWindow : public QDialog
     Q_OBJECT
 
 public:
+    enum class Action { Task, SubTask };
+
+public:
     explicit TaskWindow(FileManager* file, QTreeWidgetItem* item, QWidget *parent = nullptr);
     ~TaskWindow();
 
 private:
     Date qDateToDate(QDate& qDate);
     MyBinaryTree<Task>::Position findTask();
+    bool isTask();
+    void edit(const Action& action);
 
 signals:
     void dialogClosed();

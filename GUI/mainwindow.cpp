@@ -21,9 +21,10 @@ MainWindow::MainWindow(FileManager* file, QWidget *parent)
 MainWindow::~MainWindow()
 {
     std::cerr << "MainWindow destructure\n";
-
     delete ui;
-    delete m_file;
+    
+    if (m_file)
+        delete m_file;
 }
 
 void MainWindow::setPlaceHolders()

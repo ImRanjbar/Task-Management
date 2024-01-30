@@ -17,10 +17,6 @@ MyBinaryTree<T>::Node::~Node() = default;
 template<typename T>
 MyBinaryTree<T>::Position::Position(Node* node) : m_node(node) {}
 
-
-template<typename T>
-MyBinaryTree<T>::Position::Position() = default;
-
 template<typename T>
 MyBinaryTree<T>::Position::~Position() = default;
 
@@ -232,6 +228,16 @@ bool MyBinaryTree<T>::remove(const Position& target)
 }
 
 template<typename T>
+bool MyBinaryTree<T>::contains(const T &element)
+{
+    const Position& pos = search(m_root, element);
+    if (pos.isNull())
+        return false;
+    else
+        return true;
+}
+
+template<typename T>
 std::list<T> MyBinaryTree<T>::preOrderList() const
 {
     std::list<T> elements;
@@ -424,7 +430,7 @@ template<typename T>
 typename MyBinaryTree<T>::Position MyBinaryTree<T>::search(const Position& current, const T value) const
 {
     if (current.isNull()) {
-        throw std::runtime_error("search Failed");
+        return Position();
     }
 
     if (*current == value) {
@@ -437,7 +443,7 @@ typename MyBinaryTree<T>::Position MyBinaryTree<T>::search(const Position& curre
         return search(current.right(), value);
     }
     else {
-        throw std::runtime_error("search Failed");
+        return Position();
     }
 }
 

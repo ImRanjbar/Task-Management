@@ -45,24 +45,48 @@ MyBinaryTree<Task>::Position TaskWindow::findTask()
     return posTask;
 }
 
-void TaskWindow::on_PB_edit_clicked()
+bool TaskWindow::isTask()
+{
+    MyBinaryTree<Task>::Position pos = findTask();
+    if (pos.isNull())
+        return false;
+    else
+        return true;
+}
+
+void TaskWindow::edit(const Action &action)
 {
     std::string title = ui->LE_title->text().toStdString();
     std::string description = ui->TE_description->toPlainText().toStdString();
     QDate qDate = ui->DE_deadline->date();
     Date deadline = qDateToDate(qDate);
 
+
     MyBinaryTree<Task>::Position posTask = findTask();
 
-    Task copyTask = *posTask;
-    Task& realTask = *posTask;
+    if (posTask.isNull()){
+        return;
+    }
+    else {
 
-    copyTask.setTitle(title);
-    copyTask.setDescription(description);
-    copyTask.setDeadline(deadline);
+        Task copyTask = *posTask;
+        Task& realTask = *posTask;
 
-    m_file->user().taskManagement().tasks().remove(realTask);
-    m_file->user().taskManagement().tasks().insert(copyTask);
+        copyTask.setTitle(title);
+        copyTask.setDescription(description);
+        copyTask.setDeadline(deadline);
+
+        m_file->user().taskManagement().tasks().remove(realTask);
+        m_file->user().taskManagement().tasks().insert(copyTask);
+    }
+}
+
+void TaskWindow::on_PB_edit_clicked()
+{
+    if (isTask())
+        edit(Action::Task);
+    else
+        edit(Action::SubTask);
 
     this->close();
 }

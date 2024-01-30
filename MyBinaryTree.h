@@ -28,7 +28,6 @@ public:
     class Position {
     public:
         Position(Node* node = nullptr);
-        Position();
         ~Position();
 
         T& operator*() const;
@@ -57,6 +56,7 @@ public:
     void insert(const T& element);
     bool remove(const T& element);
     bool remove(const Position& element);
+    bool contains(const T& element);
     std::list<T> preOrderList() const;
     std::list<T> postOrderList() const;
     std::list<T> inOrderList() const;

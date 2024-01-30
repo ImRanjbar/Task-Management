@@ -11,29 +11,25 @@ HomeWindow::HomeWindow(FileManager* file, QWidget *parent)
 {
     m_file = file;
 
-    ui->setupUi(this);
     this->setWindowTitle("Home");
-
-    connect(this, &QMainWindow::destroyed, this, &HomeWindow::windowClosed);
-
+    ui->setupUi(this);
 
     ui->LB_welcome->setText("Welcome " + QString::fromStdString(m_file->user().getName()));
 
     QFont font("Calibri", 15);
-    font.setBold(true);
     ui->treeWidget->setFont(font);
+    ui->treeWidget->setColumnWidth(0,130);
+    ui->treeWidget->setColumnWidth(1,220);
+    ui->treeWidget->setColumnWidth(2, 90);
     populateTreeWidget();
 
     ui->addSubWidget->hide();
-
-    ui->DE_deadlineSub->setDate(QDate::currentDate());
-    ui->DE_deadlineTask->setDate(QDate::currentDate());
+    refreshWidgets(Action::Task);
 }
 
 HomeWindow::~HomeWindow()
 {
     std::cerr << "HomeWindow destructure\n";
-    m_file->saveTasks();
     delete ui;
 }
 
@@ -58,6 +54,7 @@ void HomeWindow::populateTreeWidget()
         }
     }
 
+    refreshWidgets(Action::Task);
     ui->PB_done->setEnabled(false);
     ui->addSubWidget->hide();
 }
@@ -88,22 +85,105 @@ Date HomeWindow::qDateToDate(QDate &qDate)
     return Date(day, month, year);
 }
 
+void HomeWindow::hideErrors(const Action &action)
+{
+    switch (action){
+    case Action::Task:
+        ui->LB_errorTaskTitle->hide();
+        break;
+
+    case Action::SubTask:
+        ui->LB_errorSubTitle->hide();
+        break;
+    }
+}
+
+void HomeWindow::showError(QLabel *labelError, QString error)
+{
+    labelError->setText(error);
+    labelError->show();
+}
+
+void HomeWindow::refreshWidgets(const Action &action)
+{
+    switch (action){
+    case Action::Task:
+        ui->LE_titleTask->clear();
+        ui->LB_errorTaskTitle->hide();
+        ui->DE_deadlineTask->setDate(QDate::currentDate());
+        ui->TE_desTask->clear();
+        break;
+
+    case Action::SubTask:
+        ui->LE_titleSub->clear();
+        ui->LB_errorSubTitle->hide();
+        ui->DE_deadlineSub->setDate(QDate::currentDate());
+        ui->TE_desSub->clear();
+        break;
+    }
+}
+
+bool HomeWindow::checkInputValidity(const Action &action)
+{
+    switch (action) {
+    case Action::Task:
+    {
+        QString title = ui->LE_titleTask->text().trimmed();
+        if (title.isEmpty()){
+            showError(ui->LB_errorTaskTitle, "This field is required");
+            return false;
+        }
+    }
+        break;
+
+    case Action::SubTask:
+    {
+        QString subTitle = ui->LE_titleSub->text().trimmed();
+        if (subTitle.isEmpty()){
+            showError(ui->LB_errorSubTitle, "This field is required");
+            return false;
+        }
+    }
+        break;
+    }
+
+    return true;
+}
+
 void HomeWindow::on_treeWidget_itemClicked(QTreeWidgetItem *item, int column)
 {
-    ui->addSubWidget->show();
-    ui->LB_taskTitle->setText("Title: "+ item->text(0));
-
+    ui->addSubWidget->hide();
     ui->PB_done->setEnabled(true);
+
+    std::string title = item->text(0).toStdString();
+    std::string des = item->text(1).toStdString();
+    QDate qDate = QDate::fromString(item->text(2), "d/M/yyyy");
+    Date deadline = qDateToDate(qDate);
+
+    Task currentTask(title, des, deadline);
+    if (!m_file->user().taskManagement().tasks().contains(currentTask))
+        return;
+
+    refreshWidgets(Action::SubTask);
+    ui->LB_taskTitle->setText("Task Title: "+ item->text(0));
+    ui->addSubWidget->show();
+
 }
 
 void HomeWindow::on_PB_logout_clicked()
 {
+    std::cerr << "saving tasks\n";
+    m_file->saveTasks();
+
     emit this->windowClosed();
 }
 
 
 void HomeWindow::on_PB_addTask_clicked()
 {
+    if (!checkInputValidity(Action::Task))
+        return;
+
     std::string title = ui->LE_titleTask->text().trimmed().toStdString();
     std::string description = ui->TE_desTask->toPlainText().trimmed().toStdString();
     QDate date = ui->DE_deadlineTask->date();
@@ -118,6 +198,8 @@ void HomeWindow::on_PB_addTask_clicked()
 
 void HomeWindow::on_PB_addSub_clicked()
 {
+    if (!checkInputValidity(Action::SubTask))
+        return;
 
     // get the position of the task in BinaryTree
     QTreeWidgetItem* selectedItem = ui->treeWidget->currentItem();
@@ -187,6 +269,9 @@ void HomeWindow::on_PB_done_clicked()
 
 void HomeWindow::on_treeWidget_itemDoubleClicked(QTreeWidgetItem *item, int column)
 {
+    if (!isTask(item))
+        return;
+
     TaskWindow* taskWindow = new TaskWindow(m_file, item, this);
     connect(taskWindow, &TaskWindow::dialogClosed, this, &HomeWindow::onDialogClosed);
 
@@ -198,4 +283,3 @@ void HomeWindow::onDialogClosed()
 {
     populateTreeWidget();
 }
-
