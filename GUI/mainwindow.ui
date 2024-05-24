@@ -85,6 +85,9 @@
 }
 </string>
      </property>
+     <property name="echoMode">
+      <enum>QLineEdit::Password</enum>
+     </property>
     </widget>
     <widget class="QLineEdit" name="LE_username">
      <property name="geometry">
@@ -683,6 +686,9 @@ text-transform: none;
 }
 </string>
         </property>
+        <property name="echoMode">
+         <enum>QLineEdit::Password</enum>
+        </property>
        </widget>
       </item>
      </layout>
@@ -800,7 +806,7 @@ text-transform: none;</string>
      <x>0</x>
      <y>0</y>
      <width>1100</width>
-     <height>25</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>

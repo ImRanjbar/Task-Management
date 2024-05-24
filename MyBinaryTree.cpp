@@ -284,7 +284,7 @@ std::list<T> MyBinaryTree<T>::levelOrderList() const
 }
 
 template<typename T>
-typename MyBinaryTree<T>::Position& MyBinaryTree<T>::editElement(T desiredElement)
+typename MyBinaryTree<T>::Position MyBinaryTree<T>::editElement(T desiredElement)
 {
     Position p = search(m_root, desiredElement);
     return p;

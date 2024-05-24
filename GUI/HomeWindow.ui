@@ -326,7 +326,7 @@ QPushButton:active {
 
     padding: 1px; 
 	font-family: Calibri;
-	font-size: 16px;
+	font-size: 14px;
 	color: #634ab3;
 	font-weight: bold;
 }
@@ -634,7 +634,7 @@ text-transform: none;
 
     padding: 1px; 
 	font-family: Calibri;
-	font-size: 16px;
+	font-size: 14px;
 	color: #1a699d;
 	font-weight: bold;
 }
@@ -840,7 +840,7 @@ text-transform: none;
      <x>0</x>
      <y>0</y>
      <width>1100</width>
-     <height>25</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>

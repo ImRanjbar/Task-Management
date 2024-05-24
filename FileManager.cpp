@@ -1,4 +1,5 @@
 #include "FileManager.h"
+#include <limits>
 #include <fstream>
 
 FileManager::FileManager(User& user) : m_user(&user) {}
@@ -128,6 +129,7 @@ bool FileManager::readUser()
     while (file >> str){
         if (str != m_user->getUsername()){
             file.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            std::cout << std::numeric_limits<int>::max();
         }
         else {
             m_user->setUsername(str);

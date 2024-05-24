@@ -117,7 +117,7 @@ bool MainWindow::checkInputValidity(const Action& action)
         break;
     }
 
-    return false;
+    return true;
 }
 
 bool MainWindow::checkEmptyInput(const Action &action)
